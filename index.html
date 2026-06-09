@@ -212,6 +212,48 @@
 
 
 
+.contact {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.contact p {
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+.contact-list {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  padding: 14px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.contact-item:hover {
+  transform: translateY(-4px);
+  opacity: 0.9;
+}
+
+/* Warna platform */
+.contact-item.wa { background: #25D366; }
+.contact-item.gmail { background: #EA4335; }
+.contact-item.github { background: #111; }
+
+
   </style>
 </head>
 
@@ -306,19 +348,40 @@
 </section>
 
 <footer id="contact">
-<a href="https://mail.google.com/mail/?view=cm&fs=1&to=emailkamu@gmail.com&su=Kerja%20Sama&body=Halo%20saya%20tertarik">
-  Kirim Email
-</a>
-<a 
-  href="https://wa.me/6281234567890?text=Halo%20saya%20mau%20kerja%20sama" 
-  target="_blank"
-  class="contact-btn"
->
-  Chat via WhatsApp
-</a>
-<a href="https://github.com/USERNAME" target="_blank" class="btn github">
-  GitHub
-</a>
+
+<section id="contact" class="contact">
+  <h2>Contact Me</h2>
+  <p>Hubungi saya lewat platform favoritmu 👇</p>
+
+  <div class="contact-list">
+    <!-- WhatsApp -->
+    <a 
+      href="https://wa.me/6281223260069?text=Halo%20saya%20tertarik%20dengan%20portfolio%20Anda"
+      target="_blank"
+      class="contact-item wa"
+    >
+      WhatsApp
+    </a>
+
+    <!-- Gmail -->
+    <a 
+      href="mailto:therizik4@gmail.com?subject=Kerja%20Sama&body=Halo%20saya%20tertarik%20dengan%20portfolio%20Anda"
+      class="contact-item gmail"
+    >
+      Gmail
+    </a>
+
+    <!-- GitHub -->
+    <a 
+      href="https://github.com/rizik-09"
+      target="_blank"
+      class="contact-item github"
+    >
+      GitHub
+    </a>
+  </div>
+</section>
+
 </footer>
 
 <script>
