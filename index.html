@@ -11,385 +11,722 @@
   <meta name="author" content="Ade Rizik"/>
 
   <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#0b0b0f;
-      --card:#13131a;
-      --text:#f5f5f5;
-      --muted:#9ca3af;
-      --accent:#7c3aed;
+    :root {
+      --bg: #0b0b0f;
+      --card: #13131c;
+      --text: #f5f5f5;
+      --muted: #9ca3af;
+      --accent-violet: #7c3aed;
+      --accent-blue: #0ea5e9;
+      --accent-gold: #f59e0b;
+      --border: rgba(255, 255, 255, 0.08);
     }
-    [data-theme="light"]{
-      --bg:#f5f7fb;
-      --card:#ffffff;
-      --text:#0b0b0f;
-      --muted:#6b7280;
-      --accent:#6d28d9;
+    
+    [data-theme="light"] {
+      --bg: #f4f6fa;
+      --card: #ffffff;
+      --text: #0b0b0f;
+      --muted: #6b7280;
+      --accent-violet: #6d28d9;
+      --accent-blue: #0284c7;
+      --accent-gold: #d97706;
+      --border: rgba(0, 0, 0, 0.08);
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:Inter,system-ui;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.75), rgba(0,0,0,.95)),
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: 
+        linear-gradient(to bottom, rgba(11, 11, 15, 0.85), rgba(11, 11, 15, 0.98)),
         url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80");
-      background-size:cover;
-      background-attachment:fixed;
-      color:var(--text);
-      transition:.3s;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
     }
 
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block;border-radius:14px}
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
-    header{
-      padding:80px 20px 120px;
-      text-align:center;
+    /* TOGGLE THEME */
+    .toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 99;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: 16px;
+      transition: transform 0.2s;
     }
-    header img{
-      width:140px;
-      height:140px;
-      border-radius:50%;
-      margin:0 auto 20px;
-      border:4px solid var(--accent);
+    .toggle:hover { transform: scale(1.1); }
+
+    /* HEADER */
+    header {
+      padding: 120px 20px 80px;
+      text-align: center;
+      position: relative;
     }
-    header h1{
-      font-size:clamp(32px,6vw,56px);
-      font-weight:800;
+    header img.avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      border: 3px solid var(--accent-gold);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+      object-fit: cover;
     }
-    header p{
-      max-width:700px;
-      margin:16px auto;
-      color:var(--muted);
+    header h1 {
+      font-size: clamp(36px, 7vw, 64px);
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 30%, var(--accent-blue), var(--accent-violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    header p {
+      max-width: 600px;
+      margin: 16px auto 32px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
     }
 
-    .actions{
-      margin-top:30px;
-      display:flex;
-      justify-content:center;
-      gap:14px;
-      flex-wrap:wrap;
+    /* BUTTONS */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
-    .btn{
-      padding:14px 22px;
-      border-radius:12px;
-      background:var(--accent);
-      color:#fff;
-      font-weight:600;
-      border:none;
-      cursor:pointer;
+    .btn {
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
     }
-    .btn.outline{
-      background:transparent;
-      border:1px solid var(--accent);
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent-violet), var(--accent-blue));
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    }
+    .btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    }
+    .btn.outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn.outline:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: var(--accent-blue);
     }
 
-    .toggle{
-      position:fixed;
-      top:20px;
-      right:20px;
-      z-index:99;
+    /* GLOBAL SECTION */
+    section {
+      padding: 80px 20px;
+      max-width: 1140px;
+      margin: auto;
     }
-
-    section{
-      padding:100px 20px;
-      max-width:1200px;
-      margin:auto;
+    .title-container {
+      text-align: center;
+      margin-bottom: 50px;
     }
-    .title{
-      font-size:32px;
-      margin-bottom:40px;
-      text-align:center;
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .title::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--accent-gold);
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
     }
 
     /* STATS */
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:20px;
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
     }
-    .stat{
-      background:var(--card);
-      padding:30px;
-      text-align:center;
-      border-radius:18px;
+    .stat {
+      background: var(--card);
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      transition: transform 0.3s;
     }
-    .stat h3{
-      font-size:36px;
-      color:var(--accent);
+    .stat:hover { transform: translateY(-4px); }
+    .stat h3 {
+      font-size: 38px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
     }
+    .stat p { color: var(--muted); font-size: 14px; font-weight: 500; }
 
-    /* PROJECTS */
-    .projects{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:24px;
+    /* PROJECTS WITH REAL IMAGES */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
     }
-    .project{
-      background:var(--card);
-      border-radius:20px;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
+    .project-card {
+      background: var(--card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .project-content{
-      padding:20px;
-      flex:1;
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(124, 58, 237, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
-    .project h3{margin-bottom:8px}
-    .tech{
-      font-size:13px;
-      color:var(--muted);
-      margin:10px 0;
+    .thumbnail-box {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      background: #1a1a24;
     }
-    .links{
-      display:flex;
-      gap:10px;
-      margin-top:16px;
-      flex-wrap:wrap;
+    .thumbnail-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
     }
-    .links a{
-      flex:1;
-      text-align:center;
-      padding:10px;
-      border-radius:10px;
-      font-weight:600;
+    .project-card:hover .thumbnail-box img {
+      transform: scale(1.05);
     }
-    .live{background:var(--accent);color:#fff}
-    .github{
-      border:1px solid var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:6px;
+    
+    .project-info {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .github svg{
-      width:18px;
-      fill:currentColor;
+    .project-info h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .project-info p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .tech-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .tag {
+      background: rgba(255,255,255,0.04);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 12px;
+    }
+    .p-link {
+      flex: 1;
+      padding: 11px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .p-link.btn-live {
+      background: var(--text);
+      color: var(--bg);
+    }
+    .p-link.btn-live:hover { opacity: 0.9; }
+    
+    .p-link.btn-git {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .p-link.btn-git:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: var(--accent-blue);
+    }
+    .p-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* CV / RESUME SECTION */
+    .cv-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+    }
+    .cv-left h4 {
+      font-size: 18px;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .cv-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+    .cv-timeline {
+      position: relative;
+      border-left: 2px solid var(--border);
+      padding-left: 20px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-violet);
+      border: 2px solid var(--card);
+    }
+    .timeline-date {
+      font-size: 12px;
+      color: var(--accent-blue);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .timeline-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .timeline-desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     /* ROADMAP */
-    .roadmap{
-      display:grid;
-      gap:20px;
+    .roadmap-list {
+      display: grid;
+      gap: 16px;
+      max-width: 700px;
+      margin: auto;
     }
-    .step{
-      background:var(--card);
-      padding:24px;
-      border-radius:16px;
+    .step {
+      background: var(--card);
+      padding: 20px 24px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--accent-violet);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
     }
 
-    footer{
-      padding:60px 20px;
-      text-align:center;
-      color:var(--muted);
+    /* CONTACT */
+    .contact {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 60px 40px;
+      text-align: center;
+      border: 1px solid var(--border);
+      max-width: 800px;
+      margin: 40px auto;
     }
-
-    @media(max-width:600px){
-      header{padding-top:60px}
+    .contact-grid {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
     }
-.contact-btn {
-  background: #25D366;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-}
-.contact-btn:hover {
-  background: #1ebe5d;
-}
+    .c-item {
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s;
+    }
+    .c-item:hover { transform: translateY(-3px); }
+    .c-item.wa { background: #25D366; }
+    .c-item.mail { background: #ea4335; }
+    .c-item.git { background: #24292e; border: 1px solid rgba(255,255,255,0.1); }
+    .c-item svg { width: 18px; height: 18px; fill: currentColor; }
 
-.btn.github{
-  background:#111;
-  color:#fff;
-  padding:12px 18px;
-  border-radius:8px;
-  text-decoration:none;
-}
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+    /* Hidden Link Button */
+    .secret-trigger {
+      opacity: 0.1;
+      cursor: default;
+      transition: opacity 0.3s;
+      display: inline-block;
+      margin-left: 5px;
+    }
+    .secret-trigger:hover { opacity: 0.6; }
 
-
-
-.contact {
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.contact h2 {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.contact p {
-  opacity: 0.8;
-  margin-bottom: 30px;
-}
-
-.contact-list {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.contact-item {
-  padding: 14px 22px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  color: white;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.contact-item:hover {
-  transform: translateY(-4px);
-  opacity: 0.9;
-}
-
-/* Warna platform */
-.contact-item.wa { background: #25D366; }
-.contact-item.gmail { background: #EA4335; }
-.contact-item.github { background: #111; }
-
-
+    @media(max-width: 768px) {
+      .cv-layout { grid-template-columns: 1fr; gap: 30px; padding: 24px; }
+    }
+    @media(max-width: 600px) {
+      header { padding-top: 80px; }
+      .contact { padding: 40px 20px; }
+    }
   </style>
 </head>
-
 <body>
-<button class="btn toggle" onclick="toggleTheme()">🌓</button>
 
-<header>
-  <img src="gw.jpg" alt="Ade Rizik">
-  <h1>Ade Rizik</h1>
-  <p>Full Stack Developer fokus ke Web App, UI modern, dan project yang benar-benar jalan. Bukan template kosong.</p>
-  <div class="actions">
-    <a class="btn" href="#projects">View Projects</a>
-    <a class="btn outline" href="#contact">Hire Me</a>
-  </div>
-</header>
+  <button class="toggle" onclick="toggleTheme()" aria-label="Toggle Theme">🌓</button>
 
-<section>
-  <h2 class="title">Stats</h2>
-  <div class="stats">
-    <div class="stat"><h3>3+</h3><p>Real Projects</p></div>
-    <div class="stat"><h3>100%</h3><p>Responsive</p></div>
-    <div class="stat"><h3>Fast</h3><p>Optimized</p></div>
-    <div class="stat"><h3>∞</h3><p>Learning</p></div>
-  </div>
-</section>
+  <!-- HEADER -->
+  <header>
+    <img src="gw.jpg" class="avatar" alt="Ade Rizik">
+    <h1>Ade Rizik</h1>
+    <p>Full Stack Developer fokus ke Web App, UI modern, dan project yang benar-benar jalan. Bukan template kosong.</p>
+    <div class="actions">
+      <a class="btn primary" href="#projects">View Projects</a>
+      <a class="btn outline" href="#cv">View Resume</a>
+    </div>
+  </header>
 
-<section id="projects">
-  <h2 class="title">Projects</h2>
-  <div class="projects">
+  <!-- STATS -->
+  <section>
+    <div class="stats">
+      <div class="stat"><h3>3+</h3><p>Real Projects</p></div>
+      <div class="stat"><h3>100%</h3><p>Responsive</p></div>
+      <div class="stat"><h3>Fast</h3><p>Optimized</p></div>
+      <div class="stat"><h3>∞</h3><p>Learning</p></div>
+    </div>
+  </section>
 
-    <!-- PROJECT 1 -->
-    <div class="project">
-      <img src="game.jpg">
-      <div class="project-content">
-        <h3>Arcade Web Game</h3>
-        <p>Game web dengan animasi smooth & logic JS.</p>
-        <div class="tech">HTML • CSS • JavaScript</div>
-        <div class="links">
-          <a class="live" href="https://game-rizik.netlify.app" target="_blank">Live Demo</a>
-          <a class="github" href="https://github.com/rizik-09/game-pack" target="_blank">
-            <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
-            GitHub
-          </a>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="title-container">
+      <h2 class="title">Projects</h2>
+      <p class="subtitle">Kumpulan aplikasi produksi dan eksperimen terbaru</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- PROYEK 1: Kingkong Galuh -->
+      <div class="project-card">
+        <div class="thumbnail-box">
+          <!-- Ganti 'kingkong.jpg' dengan nama screenshot proyek Anda jika ada -->
+          <img src="kingkong.jpg" alt="Kingkong Galuh Screenshot" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <div class="project-info">
+          <div>
+            <h3>Kingkong Galuh</h3>
+            <p>Platform web interaktif yang dikembangkan dengan fokus pada performa tinggi dan animasi yang smooth.</p>
+            <div class="tech-tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a class="p-link btn-live" href="https://Kingkong-galuh.vercel.app" target="_blank">
+              Live Demo 
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a class="p-link btn-git" href="https://github.com/rizik-09/kingkong" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROYEK 2: BPH Ten -->
+      <div class="project-card">
+        <div class="thumbnail-box">
+          <img src="bph.jpg" alt="BPH Ten Screenshot" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <div class="project-info">
+          <div>
+            <h3>BPH Ten</h3>
+            <p>Sistem web manajemen internal atau landing page khusus dengan struktur kode yang modular dan clean.</p>
+            <div class="tech-tags">
+              <span class="tag">Tailwind</span><span class="tag">UI/UX</span><span class="tag">Vercel</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a class="p-link btn-live" href="https://bph-ten.vercel.app" target="_blank">
+              Live Demo
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a class="p-link btn-git" href="https://github.com/rizik-09/bth" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROYEK 3: Ngawi Eight -->
+      <div class="project-card">
+        <div class="thumbnail-box">
+          <img src="ngawi.jpg" alt="Ngawi Eight Screenshot" onerror="this.src='https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <div class="project-info">
+          <div>
+            <h3>Ngawi Eight</h3>
+            <p>Eksperimen web kreatif yang dirancang responsif penuh demi kenyamanan navigasi pengguna mobile.</p>
+            <div class="tech-tags">
+              <span class="tag">Frontend</span><span class="tag">Responsive</span><span class="tag">Web App</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a class="p-link btn-live" href="https://ngawi-eight.vercel.app" target="_blank">
+              Live Demo
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a class="p-link btn-git" href="https://github.com/rizik-09/ngawi" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROYEK 4: Ambatuner -->
+      <div class="project-card">
+        <div class="thumbnail-box">
+          <img src="ambatuner.jpg" alt="Ambatuner Screenshot" onerror="this.src='https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <div class="project-info">
+          <div>
+            <h3>Ambatuner</h3>
+            <p>Aplikasi web modern yang dikostumisasi penuh dengan arsitektur UI yang unik dan fungsional.</p>
+            <div class="tech-tags">
+              <span class="tag">Modern UI</span><span class="tag">JavaScript</span><span class="tag">Optimization</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a class="p-link btn-live" href="https://Ambatuner.vercel.app" target="_blank">
+              Live Demo
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a class="p-link btn-git" href="https://github.com/rizik-09/ambatuner" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROYEK 5: Arcade Web Game -->
+      <div class="project-card">
+        <div class="thumbnail-box"><img src="game.jpg" alt="Game Screenshot"></div>
+        <div class="project-info">
+          <div>
+            <h3>Arcade Web Game</h3>
+            <p>Game web interaktif dengan animasi murni menggunakan logika dasar JavaScript.</p>
+            <div class="tech-tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a class="p-link btn-live" href="https://game-rizik.netlify.app" target="_blank">
+              Live Demo
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a class="p-link btn-git" href="https://github.com/rizik-09/game-pack" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROYEK 6: Barbershop -->
+      <div class="project-card">
+        <div class="thumbnail-box"><img src="bb.jpg" alt="Barbershop Screenshot"></div>
+        <div class="project-info">
+          <div>
+            <h3>Barbershop Website</h3>
+            <p>Website landing page bisnis komersial ber-UI modern, bersih, dan cepat.</p>
+            <div class="tech-tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">UI Design</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a class="p-link btn-live" href="https://barber-demo-sand.vercel.app" target="_blank">
+              Live Demo
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <a class="p-link btn-git" href="https://github.com/rizik-09/barber-demo" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CV SECTION -->
+  <section id="cv">
+    <div class="title-container">
+      <h2 class="title">Curriculum Vitae</h2>
+      <p class="subtitle">Latar belakang profesional dan keahlian teknis saya</p>
+    </div>
+    
+    <div class="cv-layout">
+      <!-- Sisi Kiri: Skills & Info -->
+      <div class="cv-left">
+        <h4>Tech Stack</h4>
+        <div class="cv-skills">
+          <span class="tag">HTML5 / CSS3</span>
+          <span class="tag">JavaScript (ES6+)</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Git & GitHub</span>
+          <span class="tag">Responsive UI</span>
+        </div>
+        
+        <h4>Layanan</h4>
+        <p class="timeline-desc" style="margin-bottom: 20px;">Pembuatan website kustom, perbaikan bug logic frontend, optimasi kecepatan web app, integrasi database/API lokal.</p>
+        
+        <button class="btn primary" onclick="window.print()" style="padding: 10px 20px; font-size:13px;">🖨️ Cetak / Simpan PDF</button>
+      </div>
+
+      <!-- Sisi Kanan: Pengalaman / Pendidikan -->
+      <div class="cv-right">
+        <h4>Pengalaman & Pendidikan</h4>
+        <div class="cv-timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2024 - Sekarang</div>
+            <div class="timeline-title">Independent Full Stack Developer</div>
+            <div class="timeline-desc">Membangun proyek berbasis web app mandiri dari nol, menguji performa responsivitas, dan meng-host hasil produksi via Vercel dan Netlify secara berkala.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2023</div>
+            <div class="timeline-title">Frontend & Logic Specialist Projects</div>
+            <div class="timeline-desc">Berhasil mengembangkan game kasual berbasis manipulasi DOM JavaScript murni serta platform e-bisnis statis (Barbershop Web) dengan UI modern.</div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- PROJECT 2 -->
-    <div class="project">
-      <img src="bb.jpg">
-      <div class="project-content">
-        <h3>Barbershop Website</h3>
-        <p>Website bisnis UI modern & cepat.</p>
-        <div class="tech">HTML • CSS • UI</div>
-        <div class="links">
-          <a class="live" href="https://barber-demo-sand.vercel.app" target="_blank">Live Demo</a>
-          <a class="github" href="https://github.com/rizik-09/barber-demo" target="_blank">
-            <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
-            GitHub
-          </a>
-        </div>
-      </div>
+  <!-- ROADMAP -->
+  <section>
+    <div class="title-container">
+      <h2 class="title">Roadmap</h2>
+      <p class="subtitle">Target pengembangan diri dan keahlian di masa mendatang</p>
     </div>
-
-    <!-- PROJECT 3 -->
-    <div class="project">
-      <img src="mt.jpg">
-      <div class="project-content">
-        <h3>Money Tracker</h3>
-        <p>Aplikasi pencatatan keuangan sederhana.</p>
-        <div class="tech">JavaScript • LocalStorage</div>
-        <div class="links">
-          <a class="live" href="https://money-tracker-rizik.netlify.app" target="_blank">Live Demo</a>
-          <a class="github" href="https://github.com/rizik-09/money-tracker.cordova.by-aderizik" target="_blank">
-            <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
-            GitHub
-          </a>
-        </div>
-      </div>
+    <div class="roadmap-list">
+      <div class="step"><div class="step-num">1</div> <div>Frontend Advanced (Animation, UX)</div></div>
+      <div class="step"><div class="step-num">2</div> <div>Backend & API Integration</div></div>
+      <div class="step"><div class="step-num">3</div> <div>Full Stack Production App</div></div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2 class="title">Contact Me</h2>
+    <p class="subtitle" style="margin-bottom: 24px;">Hubungi saya lewat platform favoritmu 👇</p>
 
-<section>
-  <h2 class="title">Roadmap</h2>
-  <div class="roadmap">
-    <div class="step">Frontend Advanced (Animation, UX)</div>
-    <div class="step">Backend & API Integration</div>
-    <div class="step">Full Stack Production App</div>
-  </div>
-</section>
+    <div class="contact-grid">
+      <a href="https://wa.me/6281223260069?text=Halo%20saya%20tertarik%20dengan%20portfolio%20Anda" target="_blank" class="c-item wa">
+        <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.503-5.714-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.413 9.863-9.847.001-2.63-1.019-5.101-2.872-6.957C16.51 1.944 14.04 .921 11.412.921 5.976.921 1.553 5.334 1.55 10.769c-.001 1.705.452 3.37 1.309 4.864l-.997 3.642 3.733-.979zM17.653 14.5c-.307-.154-1.82-.899-2.104-.1002-.284.1-.55.399-.675.542-.124.143-.249.214-.556.06-1.207-.604-1.997-.999-2.784-2.35-.207-.356.207-.33.593-1.099.114-.228.056-.427-.028-.581-.085-.154-.756-1.82-.1036-2.502-.271-.652-.55-.563-.756-.563-.196-.002-.422-.003-.652-.003-.23 0-.603.086-.918.431-.315.345-1.206 1.181-1.206 2.879 0 1.698 1.236 3.334 1.41 3.564.173.229 2.43 3.712 5.887 5.202.822.355 1.464.566 1.964.726.826.262 1.577.225 2.17.136.662-.1 1.82-.744 2.077-1.464.256-.72.256-1.337.18-1.464-.076-.128-.276-.204-.583-.359z"/></svg>
+        WhatsApp
+      </a>
+      <a href="mailto:therizik4@gmail.com?subject=Kerja%20Sama&body=Halo%20saya%20tertarik%20dengan%20portfolio%20Anda" class="c-item mail">
+        <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.634-1.634 1.634h-2.23V10.081L12 15 3.864 10.081v10.919H1.634A1.634 1.634 0 0 1 0 19.366V5.457c0-.904.732-1.634 1.634-1.634h1.49L12 9.518l8.876-5.695h1.49A1.634 1.634 0 0 1 24 5.457z"/></svg>
+        Gmail
+      </a>
+      <a href="https://github.com/rizik-09" target="_blank" class="c-item git">
+        <svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1.1.1-.8.4-1.4.7-1.7-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </section>
 
-<footer id="contact">
+  <footer>
+    <p>&copy; 2026 Ade Rizik. All Rights Reserved.<a href="gallery.html" class="secret-trigger">✦</a></p>
+  </footer>
 
-<section id="contact" class="contact">
-  <h2>Contact Me</h2>
-  <p>Hubungi saya lewat platform favoritmu 👇</p>
-
-  <div class="contact-list">
-    <!-- WhatsApp -->
-    <a 
-      href="https://wa.me/6281223260069?text=Halo%20saya%20tertarik%20dengan%20portfolio%20Anda"
-      target="_blank"
-      class="contact-item wa"
-    >
-      WhatsApp
-    </a>
-
-    <!-- Gmail -->
-    <a 
-      href="mailto:therizik4@gmail.com?subject=Kerja%20Sama&body=Halo%20saya%20tertarik%20dengan%20portfolio%20Anda"
-      class="contact-item gmail"
-    >
-      Gmail
-    </a>
-
-    <!-- GitHub -->
-    <a 
-      href="https://github.com/rizik-09"
-      target="_blank"
-      class="contact-item github"
-    >
-      GitHub
-    </a>
-  </div>
-</section>
-
-</footer>
-
-<script>
-  function toggleTheme(){
-    document.documentElement.dataset.theme =
-      document.documentElement.dataset.theme === "light" ? "" : "light";
-  }
-</script>
-
+  <script>
+    function toggleTheme(){
+      document.documentElement.dataset.theme =
+        document.documentElement.dataset.theme === "light" ? "" : "light";
+    }
+  </script>
 </body>
 </html>

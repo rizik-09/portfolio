@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Secret Archive — Random Dump</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
+  
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #050508;
+      color: #f5f5f5;
+      font-family: 'Inter', sans-serif;
+      padding: 40px 20px;
+    }
+    
+    .nav-back {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+    }
+    .nav-back a {
+      color: #9ca3af;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-back a:hover { color: #7c3aed; }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    header h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    header p {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    /* MASONRY GRID SYSTEM */
+    .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      columns: 3 300px;
+      column-gap: 20px;
+    }
+    
+    .gallery-item {
+      background: #111118;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      margin-bottom: 20px;
+      break-inside: avoid;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+      border-color: rgba(124, 58, 237, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .img-desc {
+      padding: 14px;
+      font-size: 13px;
+      color: #9ca3af;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      background: #13131c;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      color: #374151;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-back">
+    <a href="index.html">← Kembali ke Portfolio</a>
+  </div>
+
+  <header>
+    <h1>The Secret Dump</h1>
+    <p>Arsip penyimpanan lokal untuk foto-foto random.</p>
+  </header>
+
+  <!-- GRID DAFTAR FOTO ASLI -->
+  <div class="gallery-container">
+
+    <!-- Foto 1 -->
+    <div class="gallery-item">
+      <img src="poto1.jpg" alt="Random Dump 1">
+      <div class="img-desc">Arsip Storage Foto 1.</div>
+    </div>
+
+    <!-- Foto 2 -->
+    <div class="gallery-item">
+      <img src="poto2.jpg" alt="Random Dump 2">
+      <div class="img-desc">Arsip Storage Foto 2 (High Resolution).</div>
+    </div>
+
+    <!-- Foto 3 -->
+    <div class="gallery-item">
+      <img src="poto3.jpg" alt="Random Dump 3">
+      <div class="img-desc">Arsip Storage Foto 3.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Ade Rizik Vault Storage &bull; Active Node</p>
+  </footer>
+
+</body>
+</html>
